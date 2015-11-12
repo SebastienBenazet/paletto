@@ -3,7 +3,7 @@
 var Engine = function () {
 
 // private attributes and methods
-    var i;
+    var i, tourJoueur, ligne, colonne, nbPieces;
     var taillePlateau = 6;
     var plateau = new Array(taillePlateau);
 
@@ -14,7 +14,13 @@ var Engine = function () {
     var rouge = "rouge";
     var jaune = "jaune";
 
+    var couleur = [noir, vert, blanc, bleu, rouge, jaune];
+
+    var nombrePieceJoueur1 = [];
+    var nombrePieceJoueur2 = [];
+
     this.new_game = function() {
+        nbPieces = 0;
         for (i = 0; i < plateau.length; i++) {
             plateau[i] = new Array(taillePlateau);
         }
@@ -60,10 +66,16 @@ var Engine = function () {
         plateau[5][3] = rouge;
         plateau[5][4] = vert;
         plateau[5][5] = noir;
+
+        tourJoueur = 1;
+
+        for (i = 0; i<6; i++) {
+            nombrePieceJoueur1[couleur[i]] = 0;
+            nombrePieceJoueur2[couleur[i]] = 0;
+        }
     }
 
     this.juxtaposition_is_ok = function() {
-        var ligne, colonne;
 
         for (ligne = 0; ligne < taillePlateau; ligne++) {
             for (colonne = 0; colonne < taillePlateau; colonne++) {
@@ -98,5 +110,39 @@ var Engine = function () {
     }
 
 
+    this.remove_piece = function(position) {
+        colonne = position.charCodeAt(0) - 65;
+        ligne = position.charCodeAt(1) - 49;
+
+        if (plateau[ligne][colonne] != null) {
+            if (tourJoueur === 1) {
+                nombrePieceJoueur1[plateau[ligne][colonne]]++;
+            } else {
+                nombrePieceJoueur2[plateau[ligne][colonne]]++;
+            }
+            plateau[ligne][colonne] = null;
+        } else {
+            throw new ExceptionIsEmpty();
+        }
+    };
+
+    this.get_number_piece = function() {
+
+        for (ligne = 0; ligne < taillePlateau; ligne++) {
+            for (colonne = 0; colonne < taillePlateau; colonne++) {
+                if (!(plateau[ligne][colonne] == null))
+                    nbPieces++;
+            }
+        }
+        return nbPieces;
+    };
+
+    this.get_number_piece_player = function(player, color) {
+        if (player === 1) {
+            return nombrePieceJoueur1[color];
+        } else {
+            return nombrePieceJoueur2[color];
+        }
+    };
 // public methods
 };

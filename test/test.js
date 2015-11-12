@@ -30,7 +30,7 @@ PalettoTestCase.prototype.testStory3 = function () {
     assertTrue(moteur.in_corner("jaune"));
 
     moteur.remove_piece("A6");
-    
+
     assertTrue(moteur.get_number_piece() === 35);
 
     assertTrue(moteur.get_number_piece_player(1,"jaune") == 1)

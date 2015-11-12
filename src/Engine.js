@@ -84,5 +84,19 @@ var Engine = function () {
     return true;
     };
 
+    this.in_corner = function(couleur) {
+        if (plateau[0][0] === couleur)
+            return true;
+        else if (plateau[0][5] === couleur)
+            return true;
+        else if (plateau[5][0] === couleur)
+            return true;
+        else if (plateau[5][5] === couleur)
+            return true;
+        else
+            return false;
+    }
+
+
 // public methods
 };

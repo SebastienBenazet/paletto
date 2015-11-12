@@ -7,5 +7,5 @@ PalettoTestCase.prototype.testStory1 = function () {
     var moteur = new Engine();
     moteur.new_game();
 
-    assertTrue(juxtaposition_is_ok() === true);
+    assertTrue(moteur.juxtaposition_is_ok() === true);
 };

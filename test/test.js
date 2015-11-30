@@ -35,3 +35,18 @@ PalettoTestCase.prototype.testStory3 = function () {
 
     assertTrue(moteur.get_number_piece_player(1,"jaune") == 1)
 };
+
+PalettoTestCase.prototype.testStory4 = function () {
+    "use strict";
+    var moteur = new Engine();
+    moteur.new_game();
+
+    moteur.remove_piece("A6");
+
+    assertTrue(moteur.can_be_removed("A1") === true);
+
+    moteur.remove_piece("A1");
+    moteur.remove_piece("F6");
+
+    assertTrue(moteur.get_number_piece_player(2,"noir") == 2)
+};

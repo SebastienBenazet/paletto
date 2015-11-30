@@ -43,11 +43,13 @@ PalettoTestCase.prototype.testStory4 = function () {
 
     moteur.remove_piece("A6");
 
-    assertTrue(moteur.can_be_removed("A1") === true);
-    assertTrue(moteur.can_be_removed("F6") === true);
-    assertTrue(moteur.can_be_removed("F1") === true);
-    assertTrue(moteur.can_be_removed("A5") === true);
-    assertTrue(moteur.can_be_removed("B6") === true);
+    moteur.change_turn()
+
+    assertTrue(moteur.can_be_removed("A1"));
+    assertTrue(moteur.can_be_removed("F6"));
+    assertTrue(moteur.can_be_removed("F1"));
+    assertTrue(moteur.can_be_removed("A5"));
+    assertTrue(moteur.can_be_removed("B6"));
 
     moteur.remove_piece("A1");
     moteur.remove_piece("F6");

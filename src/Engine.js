@@ -19,7 +19,7 @@ var Engine = function () {
     var nombrePieceJoueur1 = [];
     var nombrePieceJoueur2 = [];
 
-    this.new_game = function() {
+    this.new_game = function () {
         nbPieces = 0;
         for (i = 0; i < plateau.length; i++) {
             plateau[i] = new Array(taillePlateau);
@@ -69,34 +69,34 @@ var Engine = function () {
 
         tourJoueur = 1;
 
-        for (i = 0; i<6; i++) {
+        for (i = 0; i < 6; i++) {
             nombrePieceJoueur1[couleur[i]] = 0;
             nombrePieceJoueur2[couleur[i]] = 0;
         }
     }
 
-    this.juxtaposition_is_ok = function() {
+    this.juxtaposition_is_ok = function () {
 
         for (ligne = 0; ligne < taillePlateau; ligne++) {
             for (colonne = 0; colonne < taillePlateau; colonne++) {
                 if (ligne != 0)
-                    if (plateau[ligne][colonne] === plateau[ligne-1][colonne])
+                    if (plateau[ligne][colonne] === plateau[ligne - 1][colonne])
                         return false;
                 if (colonne != 0)
-                    if (plateau[ligne][colonne] === plateau[ligne][colonne-1])
+                    if (plateau[ligne][colonne] === plateau[ligne][colonne - 1])
                         return false;
                 if (colonne != taillePlateau - 1)
-                    if (plateau[ligne][colonne] === plateau[ligne][colonne+1])
+                    if (plateau[ligne][colonne] === plateau[ligne][colonne + 1])
                         return false;
                 if (ligne != taillePlateau - 1)
-                    if (plateau[ligne][colonne] === plateau[ligne+1][colonne])
+                    if (plateau[ligne][colonne] === plateau[ligne + 1][colonne])
                         return false;
             }
         }
-    return true;
+        return true;
     };
 
-    this.in_corner = function(couleur) {
+    this.in_corner = function (couleur) {
         if (plateau[0][0] === couleur)
             return true;
         else if (plateau[0][5] === couleur)
@@ -110,7 +110,7 @@ var Engine = function () {
     }
 
 
-    this.remove_piece = function(position) {
+    this.remove_piece = function (position) {
         colonne = position.charCodeAt(0) - 65;
         ligne = position.charCodeAt(1) - 49;
 
@@ -126,7 +126,7 @@ var Engine = function () {
         }
     };
 
-    this.get_number_piece = function() {
+    this.get_number_piece = function () {
 
         for (ligne = 0; ligne < taillePlateau; ligne++) {
             for (colonne = 0; colonne < taillePlateau; colonne++) {
@@ -137,12 +137,43 @@ var Engine = function () {
         return nbPieces;
     };
 
-    this.get_number_piece_player = function(player, color) {
+    this.get_number_piece_player = function (player, color) {
         if (player === 1) {
             return nombrePieceJoueur1[color];
         } else {
             return nombrePieceJoueur2[color];
         }
     };
-// public methods
+
+    this.can_be_removed = function (position) {
+        colonne = position.charCodeAt(0) - 65;
+        ligne = position.charCodeAt(1) - 49;
+        var compteur = 0;
+
+        if (ligne != 0)
+            if (plateau[ligne -1][colonne] != null)
+                compteur++;
+        if  (colonne != taillePlateau -1)
+            if (plateau[ligne][colonne + 1] != null)
+                compteur++;
+        if  (ligne != taillePlateau -1)
+            if (plateau[ligne +1][colonne] != null)
+                compteur++;
+        if  (colonne != 0)
+            if (plateau[ligne][colonne -1] != null)
+                compteur++;
+
+
+        if (compteur <= 2)
+            return true;
+        else
+            return false;
+    };
+
+    this.change_turn = function () {
+        if (tourJoueur === 1) tourJoueur = 2;
+        else tourJoueur = 1;
+    };
+
+
 };
